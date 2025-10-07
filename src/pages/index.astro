@@ -1,16 +1,409 @@
 ---
-
+import Layout from "../layouts/Layout.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="Inicio - Servicios Profesionales">
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-text">
+            <h4>Soluciones digitales profesionales</h4>
+            <h1>Transformamos tus ideas en realidad digital</h1>
+            <p>
+              Ofrecemos servicios de diseño web, desarrollo y consultoría
+              tecnológica para hacer crecer tu negocio en el mundo digital.
+            </p>
+            <div class="hero-buttons">
+              <a href="/servicios" class="btn btn-primary">Ver Servicios</a>
+            </div>
+          </div>
+          <div class="hero-image">
+            <img
+              src="/imagenes/diseno-web-srv.png"
+              alt="Diseño Web Profesional"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+      <div class="container">
+        <h2 class="section-title">¿Por qué elegirnos?</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <img
+                src="/imagenes/diseno-web-srv.png"
+                alt="Diseño Profesional"
+              />
+            </div>
+            <h3>Diseño Profesional</h3>
+            <p>
+              Creamos diseños modernos y atractivos que reflejan la identidad de
+              tu marca.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <img src="/imagenes/user-svg.svg" alt="Experiencia Usuario" />
+            </div>
+            <h3>Experiencia de Usuario</h3>
+            <p>
+              Priorizamos la usabilidad y la experiencia del usuario en cada
+              proyecto.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <img src="/imagenes/poli.png" alt="Soporte Técnico" />
+            </div>
+            <h3>Soporte Continuo</h3>
+            <p>
+              Brindamos soporte técnico y mantenimiento para todos nuestros
+              servicios.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Preview -->
+    <section class="services-preview">
+      <div class="container">
+        <h2 class="section-title">Nuestros Servicios</h2>
+        <div class="services-grid">
+          <div class="service-card">
+            <h3>Desarrollo Web</h3>
+            <p>Sitios web responsivos y aplicaciones web modernas.</p>
+            <span class="price">Desde $200.000</span>
+          </div>
+          <div class="service-card">
+            <h3>Diseño UI/UX</h3>
+            <p>
+              Interfaces intuitivas y experiencias de usuario excepcionales.
+            </p>
+            <span class="price">Desde $150.000</span>
+          </div>
+          <div class="service-card">
+            <h3>Consultoría Digital</h3>
+            <p>Estrategias digitales para hacer crecer tu negocio.</p>
+            <span class="price">Desde $100.000</span>
+          </div>
+        </div>
+        <div class="services-cta">
+          <a href="/servicios" class="btn btn-primary"
+            >Ver Todos los Servicios</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-content">
+          <h2>¿Listo para comenzar tu proyecto?</h2>
+          <p>
+            Contáctanos hoy y descubre cómo podemos ayudarte a alcanzar tus
+            objetivos digitales.
+          </p>
+          <div class="cta-buttons">
+            <a href="/servicios" class="btn btn-outline">Explorar Servicios</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  /* Hero Section */
+  .hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  .hero-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero h4 {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: normal;
+  }
+
+  .hero h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    font-weight: bold;
+  }
+
+  .hero p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+
+  .hero-image {
+    text-align: center;
+  }
+
+  .hero-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Features Section */
+  .features {
+    padding: 80px 0;
+    background: white;
+  }
+
+  .section-title {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 50px;
+    color: #333;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+  }
+
+  .feature-card {
+    text-align: center;
+    padding: 30px;
+    border-radius: 12px;
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .feature-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    background: var(--color-principal);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .feature-icon img {
+    width: 40px;
+    height: 40px;
+    filter: brightness(0) invert(1);
+  }
+
+  .feature-card h3 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    color: #333;
+  }
+
+  .feature-card p {
+    color: #666;
+    line-height: 1.6;
+  }
+
+  /* Services Preview */
+  .services-preview {
+    padding: 80px 0;
+    background: var(--bg-principal);
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+  }
+
+  .service-card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+
+  .service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  .service-card h3 {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    color: #333;
+  }
+
+  .service-card p {
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+
+  .price {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--color-principal);
+  }
+
+  .services-cta {
+    text-align: center;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    padding: 80px 0;
+    background: linear-gradient(
+      135deg,
+      var(--color-principal) 0%,
+      #ff6b35 100%
+    );
+    color: white;
+    text-align: center;
+  }
+
+  .cta-content h2 {
+    font-size: 2.2em;
+    margin-bottom: 20px;
+  }
+
+  .cta-content p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-block;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 2px solid transparent;
+  }
+
+  .btn-primary {
+    background: var(--color-principal);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: var(--color-principal-hover);
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+  }
+
+  .btn-secondary:hover {
+    background: white;
+    color: var(--color-principal);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+  }
+
+  .btn-outline:hover {
+    background: white;
+    color: var(--color-principal);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .hero-content {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 2.2em;
+    }
+
+    .section-title {
+      font-size: 2em;
+    }
+
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-buttons,
+    .cta-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .btn {
+      width: 200px;
+      text-align: center;
+    }
+  }
+</style>

@@ -1,0 +1,401 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const services = [
+  {
+    id: 1,
+    title: "Desarrollo Web",
+    description:
+      "Sitios web modernos, responsivos y optimizados para SEO. Desarrollamos desde landing pages hasta aplicaciones web completas.",
+    price: "Desde $200.000",
+    duration: "2-4 semanas",
+    icon: "/imagenes/diseno-web-srv.png",
+    popular: true,
+  },
+  {
+    id: 2,
+    title: "Diseño UI/UX",
+    description:
+      "Creamos interfaces intuitivas y experiencias de usuario excepcionales que convierten visitantes en clientes.",
+    price: "Desde $150.000",
+    duration: "1-3 semanas",
+    icon: "/imagenes/user-svg.svg",
+    popular: false,
+  },
+  {
+    id: 3,
+    title: "E-commerce",
+    description:
+      "Tiendas en línea completas con sistemas de pago seguros, gestión de inventario y herramientas de marketing.",
+    price: "Desde $300.000",
+    duration: "3-6 semanas",
+    icon: "/imagenes/poli.png",
+    popular: false,
+  },
+];
+---
+
+<Layout title="Nuestros Servicios Profesionales">
+  <main>
+    <!-- Hero Section -->
+    <section class="services-hero">
+      <div class="container">
+        <div class="hero-content">
+          <h1>Nuestros Servicios</h1>
+          <p>
+            Soluciones digitales completas para hacer crecer tu negocio. Desde
+            el diseño hasta el desarrollo y mantenimiento.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section class="services-section">
+      <div class="container">
+        <div class="services-grid">
+          {
+            services.map((service) => (
+              <div class={`service-card ${service.popular ? "popular" : ""}`}>
+                {service.popular && (
+                  <div class="popular-badge">Más Popular</div>
+                )}
+
+                <div class="service-header">
+                  <div class="service-icon">
+                    <img src={service.icon} alt={service.title} />
+                  </div>
+                  <div class="service-title">
+                    <h3>{service.title}</h3>
+                    <div class="service-price">{service.price}</div>
+                  </div>
+                </div>
+
+                <div class="service-content">
+                  <p class="service-description">{service.description}</p>
+
+                  <div class="service-duration">
+                    <strong>Tiempo de entrega:</strong> {service.duration}
+                  </div>
+
+                  <div class="service-actions">
+                    <a
+                      href={`/detalle-servicio?id=${service.id}`}
+                      class="btn btn-primary"
+                    >
+                      Ver Detalles
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="why-choose-us">
+      <div class="container">
+        <h2>¿Por qué elegir nuestros servicios?</h2>
+        <div class="benefits-grid">
+          <div class="benefit-item">
+            <div class="benefit-icon">✨</div>
+            <h3>Calidad Garantizada</h3>
+            <p>
+              Todos nuestros proyectos cumplen con los más altos estándares de
+              calidad.
+            </p>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-icon">🚀</div>
+            <h3>Entrega Rápida</h3>
+            <p>
+              Cumplimos con los tiempos acordados sin comprometer la calidad.
+            </p>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-icon">💬</div>
+            <h3>Soporte Personalizado</h3>
+            <p>
+              Comunicación directa y soporte continuo durante todo el proyecto.
+            </p>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-icon">💰</div>
+            <h3>Precios Competitivos</h3>
+            <p>Excelente relación calidad-precio adaptada a tu presupuesto.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  /* Hero Section */
+  .services-hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 80px 0 60px;
+    text-align: center;
+  }
+
+  .services-hero h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+
+  .services-hero p {
+    font-size: 1.2em;
+    max-width: 600px;
+    margin: 0 auto;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.6;
+  }
+
+  /* Services Section */
+  .services-section {
+    padding: 80px 0;
+    background: var(--bg-principal);
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin-bottom: 20px;
+  }
+
+  .service-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    position: relative;
+    border: 2px solid transparent;
+  }
+
+  .service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  .service-card.popular {
+    border-color: var(--color-principal);
+    transform: scale(1.02);
+  }
+
+  .popular-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: var(--color-principal);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: bold;
+    z-index: 2;
+  }
+
+  .service-header {
+    padding: 30px 30px 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .service-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--color-principal);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .service-icon img {
+    width: 30px;
+    height: 30px;
+    filter: brightness(0) invert(1);
+  }
+
+  .service-title h3 {
+    font-size: 1.4em;
+    margin: 0 0 5px 0;
+    color: #333;
+  }
+
+  .service-price {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: var(--color-principal);
+  }
+
+  .service-content {
+    padding: 0 30px 30px;
+  }
+
+  .service-description {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 15px;
+  }
+
+  .service-duration {
+    color: #888;
+    font-size: 0.9em;
+    margin-bottom: 20px;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 6px;
+  }
+
+  .service-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .service-actions .btn {
+    flex: 1;
+    min-width: 120px;
+    text-align: center;
+  }
+
+  /* Why Choose Us */
+  .why-choose-us {
+    padding: 80px 0;
+    background: white;
+    text-align: center;
+  }
+
+  .why-choose-us h2 {
+    font-size: 2.5em;
+    margin-bottom: 50px;
+    color: #333;
+  }
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+  }
+
+  .benefit-item {
+    padding: 20px;
+  }
+
+  .benefit-icon {
+    font-size: 3em;
+    margin-bottom: 15px;
+  }
+
+  .benefit-item h3 {
+    font-size: 1.3em;
+    margin-bottom: 15px;
+    color: #333;
+  }
+
+  .benefit-item p {
+    color: #666;
+    line-height: 1.6;
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-block;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 2px solid transparent;
+    font-size: 0.9em;
+  }
+
+  .btn-large {
+    padding: 15px 30px;
+    font-size: 1em;
+  }
+
+  .btn-primary {
+    background: var(--color-principal);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: var(--color-principal-hover);
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--color-principal);
+    border: 2px solid var(--color-principal);
+  }
+
+  .btn-secondary:hover {
+    background: var(--color-principal);
+    color: white;
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+  }
+
+  .btn-outline:hover {
+    background: white;
+    color: var(--color-principal);
+  }
+
+  @media (max-width: 768px) {
+    .services-hero h1 {
+      font-size: 2.2em;
+    }
+
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .service-card.popular {
+      transform: none;
+    }
+
+    .service-header {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .service-actions {
+      flex-direction: column;
+    }
+
+    .benefits-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .btn-large {
+      width: 250px;
+    }
+
+    .why-choose-us h2 {
+      font-size: 2em;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .service-header,
+    .service-content {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+</style>

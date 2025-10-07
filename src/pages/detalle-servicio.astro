@@ -1,0 +1,562 @@
+---
+export const prerender = false;
+import Layout from "../layouts/Layout.astro";
+
+// Obtener el ID del servicio desde la URL
+const serviceId = Astro.url.searchParams.get("id") || "1";
+
+// Base de datos de servicios (mismo que en servicios.astro)
+const services = [
+  {
+    id: 1,
+    title: "Desarrollo Web",
+    description:
+      "Sitios web modernos, responsivos y optimizados para SEO. Desarrollamos desde landing pages hasta aplicaciones web completas.",
+    detailedDescription:
+      "Creamos sitios web que no solo se ven increíbles, sino que también funcionan perfectamente. Nuestro enfoque combina diseño atractivo con funcionalidad robusta, asegurando que tu presencia en línea destaque entre la competencia. Utilizamos las últimas tecnologías y mejores prácticas para garantizar sitios rápidos, seguros y fáciles de mantener.",
+    price: "Desde $200.000",
+    originalPrice: "$300.000",
+    duration: "2-4 semanas",
+    icon: "/imagenes/diseno-web-srv.png",
+    portfolio: ["/imagenes/diseno-web-srv.png", "/imagenes/poli.png"],
+    popular: true,
+  },
+  {
+    id: 2,
+    title: "Diseño UI/UX",
+    description:
+      "Creamos interfaces intuitivas y experiencias de usuario excepcionales que convierten visitantes en clientes.",
+    detailedDescription:
+      "El diseño UI/UX es la clave para el éxito de cualquier producto digital. Nos especializamos en crear interfaces que no solo son visualmente atractivas, sino que también proporcionan una experiencia de usuario fluida e intuitiva. Investigamos a tu audiencia, analizamos el comportamiento del usuario y diseñamos soluciones que generan resultados.",
+    price: "Desde $150.000",
+    originalPrice: "$200.000",
+    duration: "1-3 semanas",
+    icon: "/imagenes/user-svg.svg",
+    portfolio: ["/imagenes/user-svg.svg", "/imagenes/diseno-web-srv.png"],
+    popular: false,
+  },
+  {
+    id: 3,
+    title: "E-commerce",
+    description:
+      "Tiendas en línea completas con sistemas de pago seguros, gestión de inventario y herramientas de marketing.",
+    detailedDescription:
+      "Desarrollamos tiendas en línea completas que te permiten vender tus productos las 24 horas del día. Nuestras soluciones de e-commerce incluyen todo lo necesario para gestionar tu negocio online: desde catálogos de productos hasta sistemas de pago seguros y herramientas de marketing avanzadas.",
+    price: "Desde $300.000",
+    originalPrice: "$450.000",
+    duration: "3-6 semanas",
+    icon: "/imagenes/poli.png",
+    portfolio: ["/imagenes/poli.png", "/imagenes/diseno-web-srv.png"],
+    popular: false,
+  },
+];
+
+// Encontrar el servicio correspondiente
+const currentService =
+  services.find((service) => service.id.toString() === serviceId) ||
+  services[0];
+---
+
+<Layout title={`${currentService.title} - Detalle del Servicio`}>
+  <main>
+    <!-- Breadcrumb -->
+    <section class="breadcrumb">
+      <div class="container">
+        <nav>
+          <a href="/">Inicio</a>
+          <span>›</span>
+          <a href="/servicios">Servicios</a>
+          <span>›</span>
+          <span class="current">{currentService.title}</span>
+        </nav>
+      </div>
+    </section>
+
+    <!-- Hero del Servicio -->
+    <section class="service-hero">
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-text">
+            {
+              currentService.popular && (
+                <div class="popular-badge">Más Popular</div>
+              )
+            }
+            <h1>{currentService.title}</h1>
+            <p class="hero-description">{currentService.description}</p>
+            <div class="hero-meta">
+              <div class="price-info">
+                <span class="current-price">{currentService.price}</span>
+                {
+                  currentService.originalPrice && (
+                    <span class="original-price">
+                      {currentService.originalPrice}
+                    </span>
+                  )
+                }
+              </div>
+              <div class="duration-info">
+                <strong>Tiempo de entrega:</strong>
+                {currentService.duration}
+              </div>
+            </div>
+            <div class="hero-actions">
+              <a href="/login" class="btn btn-primary btn-large"
+                >Solicitar Cotización</a
+              >
+              <a href="/servicios" class="btn btn-outline btn-large"
+                >Ver Todos los Servicios</a
+              >
+            </div>
+          </div>
+          <div class="hero-image">
+            <img src={currentService.icon} alt={currentService.title} />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Descripción Detallada -->
+    <section class="detailed-description">
+      <div class="container">
+        <h2>¿Qué incluye este servicio?</h2>
+        <p>{currentService.detailedDescription}</p>
+      </div>
+    </section>
+
+    <!-- Portfolio/Ejemplos -->
+    <section class="portfolio-section">
+      <div class="container">
+        <h2>Ejemplos de nuestro trabajo</h2>
+        <div class="portfolio-grid">
+          {
+            currentService.portfolio.map((image, index) => (
+              <div class="portfolio-item">
+                <img
+                  src={image}
+                  alt={`Ejemplo ${index + 1} de ${currentService.title}`}
+                />
+                <div class="portfolio-overlay">
+                  <h4>Proyecto Ejemplo {index + 1}</h4>
+                  <p>Ejemplo de {currentService.title.toLowerCase()}</p>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+      <div class="container">
+        <h2>Preguntas Frecuentes</h2>
+        <div class="faq-grid">
+          <div class="faq-item">
+            <h3>¿Cuánto tiempo toma completar el proyecto?</h3>
+            <p>
+              El tiempo de entrega es de {currentService.duration}, dependiendo
+              de la complejidad y los requerimientos específicos de tu proyecto.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h3>¿Qué necesito para comenzar?</h3>
+            <p>
+              Solo necesitas tener una idea clara de lo que quieres lograr.
+              Nosotros te guiaremos en todo el proceso y te ayudaremos a definir
+              los detalles.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h3>¿Incluye revisiones?</h3>
+            <p>
+              Sí, incluimos hasta 3 rondas de revisiones para asegurar que el
+              resultado final cumpla con tus expectativas.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h3>¿Ofrecen soporte post-entrega?</h3>
+            <p>
+              Incluimos 30 días de soporte gratuito después de la entrega.
+              También ofrecemos planes de mantenimiento extendido.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  /* Breadcrumb */
+  .breadcrumb {
+    background: #f8f9fa;
+    padding: 15px 0;
+    border-bottom: 1px solid #e9ecef;
+  }
+
+  .breadcrumb nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9em;
+  }
+
+  .breadcrumb a {
+    color: var(--color-principal);
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover {
+    text-decoration: underline;
+  }
+
+  .breadcrumb .current {
+    color: #666;
+    font-weight: bold;
+  }
+
+  /* Service Hero */
+  .service-hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 60px 0;
+    position: relative;
+  }
+
+  .hero-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .popular-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+
+  .service-hero h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    font-weight: bold;
+    line-height: 1.2;
+  }
+
+  .hero-description {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .hero-meta {
+    margin-bottom: 30px;
+  }
+
+  .price-info {
+    margin-bottom: 15px;
+  }
+
+  .current-price {
+    font-size: 2em;
+    font-weight: bold;
+    color: #fff;
+  }
+
+  .original-price {
+    font-size: 1.2em;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: line-through;
+    margin-left: 15px;
+  }
+
+  .duration-info {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1em;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+
+  .hero-image {
+    text-align: center;
+  }
+
+  .hero-image img {
+    max-width: 300px;
+    height: auto;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+  }
+
+  /* Detailed Description */
+  .detailed-description {
+    padding: 80px 0;
+    background: white;
+  }
+
+  .detailed-description h2 {
+    font-size: 2.2em;
+    margin-bottom: 30px;
+    color: #333;
+    text-align: center;
+  }
+
+  .detailed-description p {
+    font-size: 1.1em;
+    line-height: 1.8;
+    color: #666;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  /* Features Section */
+  .features-section {
+    padding: 80px 0;
+    background: var(--bg-principal);
+  }
+
+  .features-section h2 {
+    font-size: 2.2em;
+    margin-bottom: 50px;
+    color: #333;
+    text-align: center;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+  }
+
+  .feature-item {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: transform 0.3s ease;
+  }
+
+  .feature-item:hover {
+    transform: translateY(-3px);
+  }
+
+  .feature-number {
+    background: var(--color-principal);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2em;
+    flex-shrink: 0;
+  }
+
+  .feature-text {
+    font-size: 1.1em;
+    color: #333;
+    line-height: 1.5;
+  }
+
+  /* Portfolio Section */
+  .portfolio-section {
+    padding: 80px 0;
+    background: var(--bg-principal);
+  }
+
+  .portfolio-section h2 {
+    font-size: 2.2em;
+    margin-bottom: 50px;
+    color: #333;
+    text-align: center;
+  }
+
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+  }
+
+  .portfolio-item {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .portfolio-item:hover {
+    transform: translateY(-5px);
+  }
+
+  .portfolio-item img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+  }
+
+  .portfolio-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    color: white;
+    padding: 30px 20px 20px;
+  }
+
+  .portfolio-overlay h4 {
+    margin-bottom: 5px;
+    font-size: 1.2em;
+  }
+
+  .portfolio-overlay p {
+    font-size: 0.9em;
+    opacity: 0.9;
+  }
+
+  /* FAQ Section */
+  .faq-section {
+    padding: 80px 0;
+    background: white;
+  }
+
+  .faq-section h2 {
+    font-size: 2.2em;
+    margin-bottom: 50px;
+    color: #333;
+    text-align: center;
+  }
+
+  .faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+  }
+
+  .faq-item {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 12px;
+    border-left: 4px solid var(--color-principal);
+  }
+
+  .faq-item h3 {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    color: #333;
+  }
+
+  .faq-item p {
+    color: #666;
+    line-height: 1.6;
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-block;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 2px solid transparent;
+    font-size: 0.9em;
+  }
+
+  .btn-large {
+    padding: 15px 30px;
+    font-size: 1em;
+  }
+
+  .btn-primary {
+    background: var(--color-principal);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: var(--color-principal-hover);
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+  }
+
+  .btn-outline:hover {
+    background: white;
+    color: var(--color-principal);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .hero-content {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .service-hero h1 {
+      font-size: 2.2em;
+    }
+
+    .hero-actions,
+    .cta-actions {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .btn-large {
+      width: 250px;
+    }
+
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .feature-item {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .process-timeline::before {
+      display: none;
+    }
+
+    .process-step {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .step-content {
+      margin-left: 0;
+      margin-top: 15px;
+    }
+
+    .portfolio-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .faq-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

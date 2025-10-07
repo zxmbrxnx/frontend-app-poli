@@ -1,0 +1,430 @@
+---
+export const prerender = false;
+const user = Astro.cookies.get("session")?.value;
+import DashboardLayout from "../../layouts/DashboardLayout.astro";
+
+// Datos de ejemplo para los servicios
+const services = [
+  {
+    id: 1,
+    title: "Desarrollo Web",
+    description: "Sitios web modernos",
+    price: 200000,
+    sold: 15,
+    status: "active",
+    icon: "🎨",
+    createdAt: "2024-10-01",
+  },
+  {
+    id: 2,
+    title: "Diseño UI/UX",
+    description: "Interfaces intuitivas",
+    price: 150000,
+    sold: 8,
+    status: "active",
+    icon: "💻",
+    createdAt: "2024-09-15",
+  },
+  {
+    id: 3,
+    title: "E-commerce",
+    description: "Tiendas en línea",
+    price: 300000,
+    sold: 4,
+    status: "inactive",
+    icon: "🛒",
+    createdAt: "2024-08-20",
+  },
+];
+---
+
+<DashboardLayout title="Servicios - Dashboard">
+  <div class="page-header">
+    <div class="header-content">
+      <h1>Gestión de Servicios</h1>
+      <p class="page-description">Administra todos tus servicios disponibles</p>
+    </div>
+    <div class="header-actions">
+      <a href="/dashboard/crear-servicio" class="btn btn-primary">
+        <span class="btn-icon">+</span>
+        Crear Servicio
+      </a>
+    </div>
+  </div>
+
+  <!-- Estadísticas rápidas de servicios -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">📦</div>
+      <div class="stat-content">
+        <h3>Total Servicios</h3>
+        <p class="stat-value">{services.length}</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">✅</div>
+      <div class="stat-content">
+        <h3>Servicios Activos</h3>
+        <p class="stat-value">
+          {services.filter((s) => s.status === "active").length}
+        </p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">💰</div>
+      <div class="stat-content">
+        <h3>Total Vendidos</h3>
+        <p class="stat-value">{services.reduce((sum, s) => sum + s.sold, 0)}</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">⏸️</div>
+      <div class="stat-content">
+        <h3>Servicios Pausados</h3>
+        <p class="stat-value">
+          {services.filter((s) => s.status === "inactive").length}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabla de servicios -->
+  <div class="services-section">
+    <div class="table-container">
+      <table class="services-table">
+        <thead>
+          <tr>
+            <th>Servicio</th>
+            <th>Precio</th>
+            <th>Vendidos</th>
+            <th>Estado</th>
+            <th>Fecha Creación</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            services.map((service) => (
+              <tr>
+                <td>
+                  <div class="service-info">
+                    <div class="service-icon">{service.icon}</div>
+                    <div>
+                      <strong>{service.title}</strong>
+                      <small>{service.description}</small>
+                    </div>
+                  </div>
+                </td>
+                <td class="price">${service.price.toLocaleString()}</td>
+                <td>
+                  <span class="quantity-badge">{service.sold}</span>
+                </td>
+                <td>
+                  <span class={`status-badge ${service.status}`}>
+                    {service.status === "active" ? "Activo" : "Pausado"}
+                  </span>
+                </td>
+                <td class="date">
+                  {new Date(service.createdAt).toLocaleDateString("es-ES")}
+                </td>
+                <td>
+                  <a
+                    href={`/dashboard/editar-servicio?id=${service.id}`}
+                    class="action-btn edit"
+                    title="Editar"
+                  >
+                    Editar
+                  </a>
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</DashboardLayout>
+
+<style>
+  /* Header de página */
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 20px 0;
+    border-bottom: 1px solid #e9ecef;
+  }
+
+  .header-content h1 {
+    margin: 0 0 5px 0;
+    color: #333;
+    font-size: 1.8em;
+  }
+
+  .page-description {
+    margin: 0;
+    color: #666;
+    font-size: 0.9em;
+  }
+
+  .header-actions .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .btn-primary {
+    background: var(--color-principal);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: var(--color-principal-hover);
+    transform: translateY(-1px);
+  }
+
+  /* Estadísticas */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+
+  .stat-card {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: transform 0.2s ease;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-2px);
+  }
+
+  .stat-icon {
+    font-size: 2em;
+    opacity: 0.8;
+  }
+
+  .stat-content h3 {
+    margin: 0 0 5px 0;
+    font-size: 0.85em;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .stat-value {
+    margin: 0;
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #333;
+  }
+
+  /* Sección de servicios */
+  .services-section {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #e9ecef;
+  }
+
+  .section-header h2 {
+    margin: 0;
+    font-size: 1.2em;
+    color: #333;
+  }
+
+  .section-filters {
+    display: flex;
+    gap: 10px;
+  }
+
+  .filter-select,
+  .search-input {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9em;
+    background: white;
+  }
+
+  .search-input {
+    width: 200px;
+  }
+
+  /* Tabla */
+  .table-container {
+    overflow-x: auto;
+    padding: 20px;
+  }
+
+  .services-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .services-table th {
+    background: #f8f9fa;
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    color: #555;
+    font-size: 0.9em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .services-table td {
+    padding: 15px;
+    border-bottom: 1px solid #e9ecef;
+  }
+
+  .services-table tr:hover {
+    background: #f8f9fa;
+  }
+
+  .service-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .service-icon {
+    font-size: 1.5em;
+  }
+
+  .service-info strong {
+    display: block;
+    color: #333;
+    font-size: 0.95em;
+  }
+
+  .service-info small {
+    color: #666;
+    font-size: 0.8em;
+  }
+
+  .price {
+    font-weight: 600;
+    color: var(--color-principal);
+  }
+
+  .quantity-badge {
+    background: #e3f2fd;
+    color: #1976d2;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: 500;
+  }
+
+  .status-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: 500;
+  }
+
+  .status-badge.active {
+    background: #d4edda;
+    color: #155724;
+  }
+
+  .status-badge.inactive {
+    background: #f8d7da;
+    color: #721c24;
+  }
+
+  .date {
+    color: #666;
+    font-size: 0.9em;
+  }
+
+  .actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .action-btn {
+    background: none;
+    border: none;
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    font-size: 1em;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .action-btn:hover {
+    background: #f0f0f0;
+  }
+
+  .action-btn.edit:hover {
+    background: #fff3cd;
+  }
+
+  .action-btn.delete:hover {
+    background: #f8d7da;
+  }
+
+  .action-btn.toggle:hover {
+    background: #d1ecf1;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .page-header {
+      flex-direction: column;
+      gap: 15px;
+      text-align: center;
+    }
+
+    .stats-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .section-header {
+      flex-direction: column;
+      gap: 15px;
+      align-items: stretch;
+    }
+
+    .section-filters {
+      flex-direction: column;
+    }
+
+    .search-input {
+      width: 100%;
+    }
+
+    .service-info {
+      flex-direction: column;
+      text-align: center;
+      gap: 8px;
+    }
+  }
+</style>

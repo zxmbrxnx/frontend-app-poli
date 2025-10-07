@@ -1,0 +1,437 @@
+---
+export const prerender = false;
+const user = Astro.cookies.get("session")?.value;
+import DashboardLayout from "../../layouts/DashboardLayout.astro";
+---
+
+<DashboardLayout title="Crear Servicio - Dashboard">
+  <div class="page-header">
+    <div class="header-content">
+      <h1>Crear Nuevo Servicio</h1>
+      <p class="page-description">Agrega un nuevo servicio a tu catálogo</p>
+    </div>
+    <div class="header-actions">
+      <a href="/dashboard/servicios" class="btn btn-secondary">
+        <span class="btn-icon">←</span>
+        Volver a Servicios
+      </a>
+    </div>
+  </div>
+
+  <div class="form-container">
+    <form id="create-service-form" class="service-form">
+      <div class="form-grid">
+        <!-- Información básica -->
+        <div class="form-section">
+          <h3>Información Básica</h3>
+
+          <div class="form-group">
+            <label for="title">Nombre del Servicio *</label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              required
+              placeholder="Ej: Desarrollo Web"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="description">Descripción Breve *</label>
+            <input
+              type="text"
+              id="description"
+              name="description"
+              required
+              placeholder="Descripción corta del servicio"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="detailed_description">Descripción Detallada</label>
+            <textarea
+              id="detailed_description"
+              name="detailed_description"
+              rows="4"
+              placeholder="Descripción completa del servicio..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="icon">Icono/Emoji</label>
+            <input
+              type="text"
+              id="icon"
+              name="icon"
+              placeholder="🎨"
+              maxlength="2"
+            />
+            <small>Usa un emoji para representar tu servicio</small>
+          </div>
+        </div>
+
+        <!-- Precio y configuración -->
+        <div class="form-section">
+          <h3>Precio y Configuración</h3>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="price">Precio *</label>
+              <div class="input-group">
+                <span class="input-prefix">$</span>
+                <input
+                  type="number"
+                  id="price"
+                  name="price"
+                  required
+                  placeholder="200000"
+                  min="0"
+                  step="1000"
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="original_price">Precio Original</label>
+              <div class="input-group">
+                <span class="input-prefix">$</span>
+                <input
+                  type="number"
+                  id="original_price"
+                  name="original_price"
+                  placeholder="300000"
+                  min="0"
+                  step="1000"
+                />
+              </div>
+              <small>Opcional: para mostrar descuentos</small>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="duration">Tiempo de Entrega *</label>
+            <input
+              type="text"
+              id="duration"
+              name="duration"
+              required
+              placeholder="2-4 semanas"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="status">Estado</label>
+            <select id="status" name="status">
+              <option value="active">Activo</option>
+              <option value="inactive">Pausado</option>
+            </select>
+          </div>
+
+          <div class="form-group checkbox-group">
+            <label>
+              <input type="checkbox" id="popular" name="popular" />
+              <span class="checkmark"></span>
+              Marcar como "Más Popular"
+            </label>
+          </div>
+        </div>
+      </div>
+      <!-- Botones de acción -->
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary btn-large">
+          Crear Servicio
+        </button>
+        <a href="/dashboard/servicios" class="btn btn-secondary btn-large">
+          Cancelar
+        </a>
+      </div>
+    </form>
+  </div>
+</DashboardLayout>
+
+<style>
+  /* Header de página */
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 20px 0;
+    border-bottom: 1px solid #e9ecef;
+  }
+
+  .header-content h1 {
+    margin: 0 0 5px 0;
+    color: #333;
+    font-size: 1.8em;
+  }
+
+  .page-description {
+    margin: 0;
+    color: #666;
+    font-size: 0.9em;
+  }
+
+  /* Contenedor del formulario */
+  .form-container {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+  }
+
+  .service-form {
+    max-width: 1000px;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 30px;
+  }
+
+  .form-section {
+    margin-bottom: 30px;
+  }
+
+  .form-section.full-width {
+    grid-column: 1 / -1;
+  }
+
+  .form-section h3 {
+    margin: 0 0 20px 0;
+    color: #333;
+    font-size: 1.2em;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--color-principal);
+  }
+
+  /* Form groups */
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 0.9em;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    outline: none;
+    border-color: var(--color-principal);
+  }
+
+  .form-group small {
+    display: block;
+    margin-top: 5px;
+    color: #666;
+    font-size: 0.8em;
+  }
+
+  /* Input groups */
+  .input-group {
+    display: flex;
+    align-items: center;
+  }
+
+  .input-prefix {
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    border-right: none;
+    padding: 12px;
+    border-radius: 6px 0 0 6px;
+    color: #666;
+    font-weight: 500;
+  }
+
+  .input-group input {
+    border-radius: 0 6px 6px 0;
+  }
+
+  /* Checkbox personalizado */
+  .checkbox-group {
+    display: flex;
+    align-items: center;
+  }
+
+  .checkbox-group label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 0;
+  }
+
+  .checkbox-group input[type="checkbox"] {
+    display: none;
+  }
+
+  .checkmark {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+
+  .checkbox-group input[type="checkbox"]:checked + .checkmark {
+    background: var(--color-principal);
+    border-color: var(--color-principal);
+  }
+
+  .checkbox-group input[type="checkbox"]:checked + .checkmark::after {
+    content: "✓";
+    color: white;
+    font-weight: bold;
+  }
+
+  /* Features y Process inputs */
+  .feature-input,
+  .process-input {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .feature-input input,
+  .process-input input {
+    flex: 1;
+  }
+
+  .remove-feature,
+  .remove-process {
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    width: 30px;
+    height: 42px;
+    cursor: pointer;
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .remove-feature:hover,
+  .remove-process:hover {
+    background: #c82333;
+  }
+
+  /* Botones */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9em;
+    box-sizing: border-box;
+  }
+
+  .btn-large {
+    padding: 15px 30px;
+    font-size: 1em;
+  }
+
+  .btn-primary {
+    background: var(--color-principal);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: var(--color-principal-hover);
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    background: #6c757d;
+    color: white;
+  }
+
+  .btn-secondary:hover {
+    background: #5a6268;
+    transform: translateY(-1px);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--color-principal);
+    border: 2px solid var(--color-principal);
+  }
+
+  .btn-outline:hover {
+    background: var(--color-principal);
+    color: white;
+  }
+
+  /* Form actions */
+  .form-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+    padding-top: 20px;
+    border-top: 1px solid #e9ecef;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .page-header {
+      flex-direction: column;
+      gap: 15px;
+      text-align: center;
+    }
+
+    .form-container {
+      padding: 20px;
+    }
+
+    .form-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+
+    .form-actions {
+      flex-direction: column;
+    }
+
+    .btn-large {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>
