@@ -1,41 +1,42 @@
 :root {
-  --bg-principal: #F5F7FA;
-  --color-principal: #FF8F00;
-  --color-principal-hover: #FF8F00cc;
+  --bg-principal: #f5f7fa;
+  --color-principal: #ff8f00;
+  --color-principal-hover: #ff8f00cc;
 }
 
-html, body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background-color: var(--bg-principal);
-    color: #333;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+html,
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: var(--bg-principal);
+  color: #333;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 main {
-    flex: 1;
-    padding: 20px 0;
+  flex: 1;
+  padding: 20px 0;
 }
 
 .container {
-    width: 90%;
-    max-width: 1200px;
-    margin: auto;
-    overflow: hidden;
-    padding: 0 20px;
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+  overflow: hidden;
+  padding: 0 20px;
 }
 
 header {
-    background: #fff;
-    padding: 20px 0;
+  background: #fff;
+  padding: 20px 0;
 }
 
 header .logo {
-    font-weight: bold;
-    font-size: 1.5em;
-    padding: 5px 10px;
+  font-weight: bold;
+  font-size: 1.5em;
+  padding: 5px 10px;
 }
 
 .header-main {
@@ -46,36 +47,35 @@ header .logo {
 }
 
 header .logo img {
-    height: 40px;
+  height: 40px;
 }
 
 header nav a {
-    color: #333;
-    text-decoration: none;
-    margin-left: 20px;
-    font-size: 1.1em;
+  color: #333;
+  text-decoration: none;
+  margin-left: 20px;
+  font-size: 1.1em;
 }
 
 .nav-left a {
-    color: #333;
-    text-decoration: none;
-    margin-right: 20px; /* Espacio entre enlaces */
-    font-size: 1.1em;
+  color: #333;
+  text-decoration: none;
+  margin-right: 20px; /* Espacio entre enlaces */
+  font-size: 1.1em;
 }
 
 .nav-right img {
-    height: 24px; /* Altura de los iconos */
-    cursor: pointer;
-    margin-left: 15px; /* Espacio entre iconos */
+  height: 24px; /* Altura de los iconos */
+  cursor: pointer;
+  margin-left: 15px; /* Espacio entre iconos */
 }
 
-
 footer {
-    text-align: center;
-    padding: 20px;
-    margin-top: 40px;
-    background: #fff;
-    border-top: 2px solid #ddd;
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+  background: #fff;
+  border-top: 2px solid #ddd;
 }
 
 .footer-logos {
@@ -100,29 +100,29 @@ footer {
 
 /* Página de Inicio (index.html) */
 .hero {
-    text-align: center;
-    padding: 100px 20px;
-    border: 2px solid #ddd;
-    margin-top: 30px;
-    background-color: #fff;
+  text-align: center;
+  padding: 100px 20px;
+  border: 2px solid #ddd;
+  margin-top: 30px;
+  background-color: #fff;
 }
 
 .hero h1 {
-    font-size: 3em;
+  font-size: 3em;
 }
 
 /* Página de Servicios (servicios.html) */
 .services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-    margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
 }
 
 .service-card {
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   padding: 20px;
   max-width: 280px;
   text-align: center;
@@ -131,7 +131,7 @@ footer {
 
 .service-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .service-card .service-icon {
@@ -180,38 +180,38 @@ footer {
 }
 
 .btn {
-    display: inline-block;
-    background-color: #555;
-    color: #fff;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
+  display: inline-block;
+  background-color: #555;
+  color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
 }
 
 .btn-primary {
-    background-color: var(--color-principal);
+  background-color: var(--color-principal);
 }
 
 /* Página Detalle de Servicio (detalle-servicio.html) */
 .service-detail {
-    display: flex;
-    gap: 40px;
-    margin-top: 40px;
-    background: #fff;
-    padding: 30px;
-    border: 2px solid #ddd;
+  display: flex;
+  gap: 40px;
+  margin-top: 40px;
+  background: #fff;
+  padding: 30px;
+  border: 2px solid #ddd;
 }
 
 .service-image {
-    flex: 1;
-    border: 2px solid #ddd;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 300px;
-    background: #f9f9f9;
+  flex: 1;
+  border: 2px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  background: #f9f9f9;
 }
 
 .service-info {
@@ -239,124 +239,132 @@ footer {
 
 /* Página de Login (login.html) */
 .login-container {
-    width: 100%;
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 30px;
-    background: #fff;
-    border: 2px solid #ddd;
-    text-align: center;
+  width: 100%;
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 30px;
+  background: #fff;
+  border: 2px solid #ddd;
+  text-align: center;
 }
 
 .login-container h1 {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .login-container input[type="text"] {
-    width: 90%;
-    padding: 12px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
+  width: 90%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+}
+
+.login-container input[type="email"] {
+  width: 90%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
 }
 
 .login-container input[type="password"] {
-    width: 90%;
-    padding: 12px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
+  width: 90%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
 }
 
 .login-container .options {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
 }
 
 /* Dashboard (dashboard.html) */
 .dashboard-layout {
-    height: 100%;
-    display: flex;
+  height: 100%;
+  display: flex;
 }
 
 .dashboard-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .sidebar {
-    width: 200px;
-    background: #fff;
-    min-height: 80vh;
-    padding: 20px;
-    border-right: 2px solid #ddd;
+  width: 200px;
+  background: #fff;
+  min-height: 80vh;
+  padding: 20px;
+  border-right: 2px solid #ddd;
 }
 
 .sidebar header {
-    flex-direction: column;
-    padding-bottom: 30px;
+  flex-direction: column;
+  padding-bottom: 30px;
 }
 
 .sidebar nav {
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
 }
 
 .sidebar nav a {
-    margin: 10px 0;
-    color: #333;
-    text-decoration: none;
-    font-size: 1.1em;
-    padding: 5px;
-    border-radius: 4px;
+  margin: 10px 0;
+  color: #333;
+  text-decoration: none;
+  font-size: 1.1em;
+  padding: 5px;
+  border-radius: 4px;
 }
 
 .sidebar nav a.active {
-    background-color: #007bff;
-    color: #fff;
+  background-color: #007bff;
+  color: #fff;
 }
 
 .sidebar nav a:hover {
-    background-color: #f4f4f4;
+  background-color: #f4f4f4;
 }
 
 .main-content {
-    flex-grow: 1;
-    padding: 30px;
+  flex-grow: 1;
+  padding: 30px;
 }
 
 .main-content h1 {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .services-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    background: #fff;
-    border: 1px solid #ddd;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: #fff;
+  border: 1px solid #ddd;
 }
 
-.services-table th, .services-table td {
-    border: 1px solid #ddd;
-    padding: 12px;
-    text-align: left;
+.services-table th,
+.services-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
 }
 
 .services-table th {
-    background-color: #f2f2f2;
+  background-color: #f2f2f2;
 }
 
 .actions a {
-    margin-right: 10px;
-    color: #007bff;
+  margin-right: 10px;
+  color: #007bff;
 }
 
 .flex {
-    display: flex;
-    gap: 10px;
-    align-items: center;
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }

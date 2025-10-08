@@ -82,4 +82,81 @@ export const server = {
       };
     },
   }),
+
+  register: defineAction({
+    input: z
+      .object({
+        name: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
+        email: z.string().email("Email inválido"),
+        password: z
+          .string()
+          .min(6, "La contraseña debe tener al menos 6 caracteres"),
+        confirmPassword: z.string(),
+      })
+      .refine((data) => data.password === data.confirmPassword, {
+        message: "Las contraseñas no coinciden",
+        path: ["confirmPassword"],
+      }),
+    async handler({ name, email, password }, context) {
+      try {
+        // Verificar si el usuario ya existe
+        const existingUser = await db
+          .select()
+          .from(Users)
+          .where(eq(Users.email, email))
+          .get();
+
+        if (existingUser) {
+          throw new ActionError({
+            code: "CONFLICT",
+            message: "Ya existe un usuario con este email",
+          });
+        }
+
+        // Hashear la contraseña
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Crear el nuevo usuario
+        const [newUser] = await db
+          .insert(Users)
+          .values({
+            name,
+            email,
+            password: hashedPassword,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+          })
+          .returning();
+
+        // Crear sesión automáticamente después del registro
+        const sessionToken = newUser.id.toString();
+        context.cookies.set("session", sessionToken, {
+          httpOnly: true,
+          secure: false, // cambiar a true en producción
+          sameSite: "lax",
+          maxAge: 60 * 60 * 24 * 7, // 7 días
+          path: "/",
+        });
+
+        return {
+          success: true,
+          message: `¡Bienvenido ${newUser.name}! Tu cuenta ha sido creada exitosamente.`,
+          user: {
+            id: newUser.id,
+            name: newUser.name,
+            email: newUser.email,
+          },
+        };
+      } catch (error) {
+        if (error instanceof ActionError) {
+          throw error;
+        }
+
+        throw new ActionError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Error interno del servidor al crear la cuenta",
+        });
+      }
+    },
+  }),
 };
